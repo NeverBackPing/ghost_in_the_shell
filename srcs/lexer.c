@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: speladea <speladea@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-19 16:46:09 by speladea          #+#    #+#             */
-/*   Updated: 2024-11-19 16:46:09 by speladea         ###   ########.fr       */
+/*   Created: 2024-11-19 16:46:37 by speladea          #+#    #+#             */
+/*   Updated: 2024-11-19 16:46:37 by speladea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/minishell.h>
 
-int main(void)
+void	ft_check_prompt(char *prompt)
 {
-	char	*prompt;
-
-	while (1)
+	int	i = 0;
+	while (prompt[i] != '\0')
 	{
-		prompt = readline("GhostInTheShell> ");
-		if (prompt == NULL)
-		{
-			printf("\nExiting.\n");
-			break ;
-		}
-		if (*prompt != '\0')
-			add_history(prompt);
-		ft_check_prompt(prompt);
-		free(prompt);
+		printf("String: %s : char : %c\n", prompt, prompt[i]);
+		i++;
 	}
 }
