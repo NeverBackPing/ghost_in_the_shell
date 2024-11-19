@@ -86,7 +86,6 @@ export HEADER
 
 %.o: %.c
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-	@echo "Compilation $< in $@"
 
 
 ######################## 🎶🎹 ############################
