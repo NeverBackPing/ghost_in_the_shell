@@ -1,7 +1,8 @@
 ######################## 🛠️ ##############################
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -lreadline -lncurses -g
+CFLAGS = -Wall -Werror -Wextra -g
+RFLAGS = -lreadline -lhistory
 
 ######################## 🛠️ ##############################
 
@@ -33,13 +34,13 @@ LIBFT_OBJS = $(LIBC:.c=.o)
 
 SRC = srcs/main.c
 
-SRCS = ${SRC} ${LIBC}
+SRCS = ${SRC} $(LIBC)
 
 OBJS = $(SRCS:.c=.o)
 
 ######################## 🧠 #############################
 
-INCLUDES = -Iincludes
+INCLUDES = -Iincludes -I$(LIBFT_DIR)
 
 ######################## 🎨 #############################
 
@@ -84,7 +85,7 @@ export HEADER
 ######################## 🗃️ #############################
 
 %.o: %.c
-	@$(CC) $(CFLAGS) $(INCLUDES) $(INC) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 	@echo "Compilation $< in $@"
 
 
@@ -93,10 +94,10 @@ export HEADER
 all: $(NAME) header
 
 header:
-	@echo "$(BLUE)$$HEADER$(RESET)"
+	@echo "$(GREEN)$$HEADER$(RESET)"
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(NAME) $(RFLAGS)
 	@echo "Compiled ✅"
 	@echo "The program $(NAME) is created ✅"
 
