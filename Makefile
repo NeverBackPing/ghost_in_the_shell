@@ -84,7 +84,7 @@ export HEADER
 ######################## 🗃️ #############################
 
 %.o: %.c
-	@$(CC) $(CFLAGS)  $(INCLUDES) $(INC) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) $(INC) -c $< -o $@
 	@echo "Compilation $< in $@"
 
 
