@@ -12,12 +12,17 @@
 
 #include <../includes/minishell.h>
 
-void	ft_check_prompt(char *prompt)
+void	ft_token(t_minishell *minishell)
 {
-	int	i = 0;
-	while (prompt[i] != '\0')
+	int		i;
+	//t_token	*token;
+
+	i = 0;
+	//token = minishell->token;
+	while (minishell->prompt[i] != '\0')
 	{
-		printf("String: %s : char : %c\n", prompt, prompt[i]);
+		printf("String: %s : char : %c\n", minishell->prompt, minishell->prompt[i]);
 		i++;
+
 	}
 }

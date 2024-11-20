@@ -12,21 +12,24 @@
 
 #include <../includes/minishell.h>
 
-int main(void)
+int	main(void)
 {
-	char	*prompt;
+	t_minishell	minishell;
+
+	signal_action(&minishell);
 
 	while (1)
 	{
-		prompt = readline("GhostInTheShell> ");
-		if (prompt == NULL)
+		minishell.prompt = readline("GhostInTheShell> ");
+		if (minishell.prompt == NULL)
 		{
 			printf("\nExiting.\n");
 			break ;
 		}
-		if (*prompt != '\0')
-			add_history(prompt);
-		ft_check_prompt(prompt);
-		free(prompt);
+			if (minishell.prompt !=  NULL)
+				add_history(minishell.prompt);
+			ft_token(&minishell);
+		free(minishell.prompt);
 	}
+	return (0);
 }

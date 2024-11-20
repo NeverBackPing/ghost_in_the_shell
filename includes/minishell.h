@@ -15,12 +15,15 @@
 
 # include <unistd.h>
 # include <limits.h>
+# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
+# include "libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 
-typedef struct s_token
+typedef struct	s_token
 {
 	int	cmd;
 	int	pipe;
@@ -28,12 +31,26 @@ typedef struct s_token
 	int	red_output;
 }	t_token;
 
-typedef struct s_pars
+typedef struct	s_pars
 {
 
 }	t_pars;
 
-void	ft_check_prompt(char *prompt);
+typedef struct	s_signal
+{
+	void	*ctrl_touch;
+	void	*handle;
+}	t_signal;
 
+typedef struct	s_minishell
+{
+	char	*prompt;
 
+	t_pars		*pars;
+	t_signal	*signal;
+	t_token		*token;
+}	t_minishell;
+
+void	ft_token(t_minishell *minishell);
+void	signal_action(t_minishell *minishell);
 #endif

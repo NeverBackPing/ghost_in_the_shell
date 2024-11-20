@@ -32,7 +32,7 @@ LIBFT_OBJS = $(LIBC:.c=.o)
 
 ######################## 📁 #############################
 
-SRC = srcs/main.c srcs/lexer.c
+SRC = srcs/main.c srcs/lexer.c srcs/signal.c
 
 SRCS = ${SRC} $(LIBC)
 
