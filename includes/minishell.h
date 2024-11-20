@@ -45,6 +45,7 @@ typedef struct	s_signal
 typedef struct	s_minishell
 {
 	char	*prompt;
+	int		r_sig;
 
 	t_pars		*pars;
 	t_signal	*signal;
@@ -52,5 +53,6 @@ typedef struct	s_minishell
 }	t_minishell;
 
 void	ft_token(t_minishell *minishell);
-void	signal_action(t_minishell *minishell);
+void	main_signal();
+
 #endif

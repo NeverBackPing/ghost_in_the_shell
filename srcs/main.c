@@ -16,19 +16,14 @@ int	main(void)
 {
 	t_minishell	minishell;
 
-	signal_action(&minishell);
-
+	main_signal();
 	while (1)
 	{
 		minishell.prompt = readline("GhostInTheShell> ");
-		if (minishell.prompt == NULL)
-		{
-			printf("\nExiting.\n");
-			break ;
-		}
-			if (minishell.prompt !=  NULL)
-				add_history(minishell.prompt);
-			ft_token(&minishell);
+		if (!minishell.prompt)
+			break;
+		add_history(minishell.prompt);
+		ft_token(&minishell);
 		free(minishell.prompt);
 	}
 	return (0);

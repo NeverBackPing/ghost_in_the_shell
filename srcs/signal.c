@@ -1,18 +1,17 @@
 #include <../includes/minishell.h>
 
-
-void sigint_handler(int signal)
+void	ft_sig_handler(int signal)
 {
-	if (signal == SIGINT)
-		printf("\n");
+	(void)signal;
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
-void	signal_action(t_minishell *minishell)
-{
-	t_signal	*signal;
 
-	signal = minishell->signal;
-	ft_bzero(&signal, sizeof(signal));
-	signal->handle = &sigint_handler;
-	sigaction(SIGINT, signal->handle, NULL);
+void	main_signal(void)
+{
+	signal(SIGINT, ft_sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
