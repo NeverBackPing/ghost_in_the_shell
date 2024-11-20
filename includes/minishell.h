@@ -25,10 +25,14 @@
 
 typedef struct	s_token
 {
-	int	cmd;
-	int	pipe;
-	int	red_input;
-	int	red_output;
+	char	*builtin;
+	char	*command;
+	char	*flag;
+	char	*redirection;
+	char	*pipe;
+	char	*string;
+	char	*operator;
+	char	**token;
 }	t_token;
 
 typedef struct	s_pars
@@ -45,7 +49,6 @@ typedef struct	s_signal
 typedef struct	s_minishell
 {
 	char	*prompt;
-	int		r_sig;
 
 	t_pars		*pars;
 	t_signal	*signal;

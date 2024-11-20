@@ -12,6 +12,18 @@
 
 #include <../includes/minishell.h>
 
+bool isbuiltin(t_minishell *minishell)
+{
+    const char *keywords[] = { "echo", "cd", "pwd", "export", "unset", "env", "exit"};
+    for (int i = 0;
+         i < sizeof(keywords) / sizeof(keywords[0]); i++) {
+        if (strcmp(str, keywords[i]) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void	ft_token(t_minishell *minishell)
 {
 	int		i;
@@ -21,8 +33,9 @@ void	ft_token(t_minishell *minishell)
 	//token = minishell->token;
 	while (minishell->prompt[i] != '\0')
 	{
+		if ()
+
 		printf("String: %s : char : %c\n", minishell->prompt, minishell->prompt[i]);
 		i++;
-
 	}
 }
