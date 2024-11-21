@@ -22,6 +22,7 @@ void	init_minishell(t_minishell *minishell)
 		exit(EXIT_FAILURE);
 	minishell->token->token = NULL;
 	minishell->token->token_count = 0;
+	minishell->token->flag = true;
 
 	minishell->signal = malloc(sizeof(t_signal));
 	if (!minishell->signal)

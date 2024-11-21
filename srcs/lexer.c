@@ -12,7 +12,7 @@
 
 #include <../includes/minishell.h>
 
-bool	isbuiltin(const char *token)
+bool	isbuiltin(const char *tmp_token, t_token *token)
 {
 	long unsigned int		i;
 	const char				*builtin[] = \
@@ -21,11 +21,42 @@ bool	isbuiltin(const char *token)
 	i = 0;
 	while (i < (sizeof(builtin) / sizeof(builtin[0])) - 1)
 	{
-		if (ft_strcmp(token, builtin[i]) == 0)
+		if (ft_strcmp(tmp_token, builtin[i]) == 0)
 		{
+			token->flag = false;
 			return (true);
 		}
 		i++;
+	}
+	return (false);
+}
+
+bool	ispipe(const char *tmp_token, t_token *token)
+{
+	if (ft_strcmp(tmp_token, "|") == 0)
+	{
+		token->flag = false;
+		return (true);
+	}
+	return (false);
+}
+
+bool	isstdin(const char *tmp_token, t_token *token)
+{
+	if (ft_strcmp(tmp_token, "<") == 0)
+	{
+		token->flag = false;
+		return (true);
+	}
+	return (false);
+}
+
+bool	isstdout(const char *tmp_token, t_token *token)
+{
+	if (ft_strcmp(tmp_token, ">") == 0)
+	{
+		token->flag = false;
+		return (true);
 	}
 	return (false);
 }
@@ -35,10 +66,8 @@ void	ft_token(t_minishell *minishell)
 	unsigned long	i;
 	t_token			*token;
 	char			**tmp_token;
-	bool			flag;
 
 	i = 0;
-	flag = true;
 	token = minishell->token;
 	tmp_token = ft_split_token(minishell->prompt, ' ');
 	if (!tmp_token)
@@ -56,13 +85,16 @@ void	ft_token(t_minishell *minishell)
 	}
 	while (tmp_token[i] !=  NULL)
 	{
-		if (isbuiltin(tmp_token[i]) && flag)
-		{
-			flag = false;
+		if (token->flag && isbuiltin(tmp_token[i], token))
 			token->token[i] = ft_strjoin("BUILTIN: ", tmp_token[i]);
-		}
+		if (token->flag && ispipe(tmp_token[i], token))
+			token->token[i] = ft_strjoin("PIPE: ", tmp_token[i]);
+		if (token->flag && isstdin(tmp_token[i], token))
+			token->token[i] = ft_strjoin("STDIN: ", tmp_token[i]);
+		if (token->flag && isstdout(tmp_token[i], token))
+			token->token[i] = ft_strjoin("STDOUT: ", tmp_token[i]);
 		i++;
-		flag = true;
+		token->flag = true;
 	}
 	token->token[i] = NULL;
 	i = 0;
