@@ -23,8 +23,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+
 typedef struct	s_token
 {
+	size_t	token_count;
 	char	*builtin;
 	char	*command;
 	char	*flag;
@@ -40,6 +42,11 @@ typedef struct	s_pars
 
 }	t_pars;
 
+typedef struct	s_env
+{
+	char	*path;
+}	t_env;
+
 typedef struct	s_signal
 {
 	void	*ctrl_touch;
@@ -54,8 +61,12 @@ typedef struct	s_minishell
 	t_signal	*signal;
 	t_token		*token;
 }	t_minishell;
-
+//MONITORING_STRUCT
+void	init_minishell(t_minishell *minishell);
+//LEXER
+bool	isbuiltin(const char *token);
 void	ft_token(t_minishell *minishell);
+//SIGNAL
 void	main_signal();
 
 #endif

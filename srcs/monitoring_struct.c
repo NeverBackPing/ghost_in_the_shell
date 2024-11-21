@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   monitoring_struct.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: speladea <speladea@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,24 +13,23 @@
 #include <../includes/minishell.h>
 
 
-int	main(void)
+void	init_minishell(t_minishell *minishell)
 {
-	t_minishell	*minishell;
+	minishell->prompt = NULL;
 
-	minishell = (t_minishell *)malloc(sizeof(t_minishell));
-	if (!minishell)
-		exit(13);
-	init_minishell(minishell);
-	main_signal();
-	while (1)
-	{
-		minishell->prompt = readline("GhostInTheShell> ");
-		if (!minishell->prompt)
-			break;
-		add_history(minishell->prompt);
-		ft_token(minishell);
-		free(minishell->prompt);
-	}
-	//faire le free des struct init
-	return (0);
+	minishell->token = malloc(sizeof(t_token));
+	if (!minishell->token)
+		exit(EXIT_FAILURE);
+	minishell->token->token = NULL;
+	minishell->token->token_count = 0;
+
+	minishell->signal = malloc(sizeof(t_signal));
+	if (!minishell->signal)
+		exit(EXIT_FAILURE);
+	minishell->signal->ctrl_touch = NULL;
+	minishell->signal->handle = NULL;
+
+	minishell->pars = malloc(sizeof(t_pars));
+	if (!minishell->pars)
+		exit(EXIT_FAILURE);
 }

@@ -12,30 +12,58 @@
 
 #include <../includes/minishell.h>
 
-bool isbuiltin(t_minishell *minishell)
+bool	isbuiltin(const char *token)
 {
-    const char *keywords[] = { "echo", "cd", "pwd", "export", "unset", "env", "exit"};
-    for (int i = 0;
-         i < sizeof(keywords) / sizeof(keywords[0]); i++) {
-        if (strcmp(str, keywords[i]) == 0) {
-            return true;
-        }
-    }
-    return false;
+	long unsigned int		i;
+	const char				*builtin[] = \
+		{ "echo", "cd", "pwd", "export", "unset", "env", "exit", NULL};
+
+	i = 0;
+	while (i < (sizeof(builtin) / sizeof(builtin[0])) - 1)
+	{
+		if (ft_strcmp(token, builtin[i]) == 0)
+		{
+			return (true);
+		}
+		i++;
+	}
+	return (false);
 }
 
 void	ft_token(t_minishell *minishell)
 {
-	int		i;
-	//t_token	*token;
+	unsigned long	i;
+	t_token			*token;
+	char			**tmp_token;
+	bool			flag;
 
 	i = 0;
-	//token = minishell->token;
-	while (minishell->prompt[i] != '\0')
+	flag = true;
+	token = minishell->token;
+	tmp_token = ft_split_token(minishell->prompt, ' ');
+	token->token_count = ft_array_len(tmp_token);
+	token->token = (char **) malloc((token->token_count + 1) * sizeof(char *));
+	if (!token->token)
 	{
-		if ()
-
-		printf("String: %s : char : %c\n", minishell->prompt, minishell->prompt[i]);
+		dest_free(tmp_token);
+		//free all struct minishell;
+		exit(5);
+	}
+	while (tmp_token[i] !=  NULL)
+	{
+		if (isbuiltin(tmp_token[i]) && flag)
+		{
+			flag = false;
+			token->token[i] = ft_strjoin("BUILTIN: ", tmp_token[i]);
+		}
+		i++;
+		flag = true;
+	}
+	token->token[i] = NULL;
+	i = 0;
+	while (token->token[i])
+	{
+		printf("%s\n", token->token[i]);
 		i++;
 	}
 }
