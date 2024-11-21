@@ -41,6 +41,11 @@ void	ft_token(t_minishell *minishell)
 	flag = true;
 	token = minishell->token;
 	tmp_token = ft_split_token(minishell->prompt, ' ');
+	if (!tmp_token)
+	{
+		//free all struct minishell;
+		exit(5);
+	}
 	token->token_count = ft_array_len(tmp_token);
 	token->token = (char **) malloc((token->token_count + 1) * sizeof(char *));
 	if (!token->token)
