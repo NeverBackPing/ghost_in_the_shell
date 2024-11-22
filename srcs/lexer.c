@@ -139,4 +139,5 @@ void	ft_token(t_minishell *minishell)
 		printf("%s\n", token->token[i]);
 		i++;
 	}
+	dest_free(tmp_token);
 }

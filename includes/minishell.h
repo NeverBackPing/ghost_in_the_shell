@@ -46,6 +46,13 @@ typedef struct	s_pars
 typedef struct	s_env
 {
 	char	*path;
+	char	*home;
+	char	*user;
+	char	*shell;
+	char	*pwd;
+	char	*odl_pwd;
+	char	*logname;
+	char	*hostname;
 }	t_env;
 
 typedef struct	s_signal
@@ -61,8 +68,10 @@ typedef struct	s_minishell
 	t_pars		*pars;
 	t_signal	*signal;
 	t_token		*token;
-	t_env		*envp;
+	t_env		*env;
 }	t_minishell;
+//ENV
+void	init_env(t_env *env);
 //MONITORING_STRUCT
 void	init_minishell(t_minishell *minishell);
 //LEXER

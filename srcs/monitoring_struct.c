@@ -12,7 +12,7 @@
 
 #include <../includes/minishell.h>
 
-
+//faut free si un init fail faut le add
 void	init_minishell(t_minishell *minishell)
 {
 	minishell->prompt = NULL;
@@ -23,6 +23,11 @@ void	init_minishell(t_minishell *minishell)
 	minishell->token->token = NULL;
 	minishell->token->token_count = 0;
 	minishell->token->flag = true;
+
+	minishell->env = malloc(sizeof(t_env));
+	if (!minishell->env)
+		exit(EXIT_FAILURE);
+	init_env(minishell->env);
 
 	minishell->signal = malloc(sizeof(t_signal));
 	if (!minishell->signal)
