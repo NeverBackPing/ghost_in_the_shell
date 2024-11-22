@@ -51,6 +51,38 @@ bool	isstdin(const char *tmp_token, t_token *token)
 	return (false);
 }
 
+bool	isexpansion(const char *tmp_token, t_token *token)
+{
+	if (tmp_token[0] ==  '$')
+	{
+		token->flag = false;
+		return (true);
+	}
+	return (false);
+}
+
+bool	isvar(const char *tmp_token, t_token *token)
+{
+	const char	*equal_pos;
+	const char	*content;
+	const char	*name;
+
+	equal_pos = ft_strchr(tmp_token, '=');
+	name = tmp_token;
+	if (ft_isalpha(*name) == false)
+		return (false);
+	content = equal_pos + 1;
+	if (!*content)
+		return (false);
+	if ((*content == '"' || *content == '\'') && \
+		content[ft_strlen(content) - 1] == *content)
+		content++;
+	else if (content[0] == '"' || content[0] == '\'')
+		return (false);
+	token->flag = false;
+	return (true);
+}
+
 bool	isstdout(const char *tmp_token, t_token *token)
 {
 	if (ft_strcmp(tmp_token, ">") == 0)
@@ -93,12 +125,16 @@ void	ft_token(t_minishell *minishell)
 			token->token[i] = ft_strjoin("STDIN: ", tmp_token[i]);
 		if (token->flag && isstdout(tmp_token[i], token))
 			token->token[i] = ft_strjoin("STDOUT: ", tmp_token[i]);
-		i++;
+		if (token->flag && isexpansion(tmp_token[i], token))
+			token->token[i] = ft_strjoin("EXPANSION: ", tmp_token[i]);
+		if (token->flag && isvar(tmp_token[i], token))
+			token->token[i] = ft_strjoin("VARIABLE: ", tmp_token[i]);
 		token->flag = true;
+		i++;
 	}
 	token->token[i] = NULL;
 	i = 0;
-	while (token->token[i])
+	while (token->token[i] != NULL)
 	{
 		printf("%s\n", token->token[i]);
 		i++;
